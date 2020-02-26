@@ -1,0 +1,61 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+                0x00010000                . = 0x10000
+
+.text
+ *(.none)
+
+.glue_7         0x00010000        0x0
+ .glue_7        0x00010000        0x0 linker stubs
+
+.glue_7t        0x00010000        0x0
+ .glue_7t       0x00010000        0x0 linker stubs
+
+.vfp11_veneer   0x00010000        0x0
+ .vfp11_veneer  0x00010000        0x0 linker stubs
+
+.v4_bx          0x00010000        0x0
+ .v4_bx         0x00010000        0x0 linker stubs
+
+.iplt           0x00010000        0x0
+ .iplt          0x00010000        0x0 ./ISP_kernels/yuv42210bit_to_8bit.oipus
+
+.rel.dyn        0x00010000        0x0
+ .rel.iplt      0x00010000        0x0 ./ISP_kernels/yuv42210bit_to_8bit.oipus
+                0x00000000                . = 0x0
+
+.data           0x00000000       0x14
+ *(.data)
+ .data          0x00000000        0x0 ./ISP_kernels/yuv42210bit_to_8bit.oipus
+ *(.text)
+ .text          0x00000000       0x14 ./ISP_kernels/yuv42210bit_to_8bit.oipus
+                0x00000000                YUV42210bit_to_8bit_ipus_start
+                0x00000014                YUV42210bit_to_8bit_ipus_end
+
+.igot.plt       0x00000014        0x0
+ .igot.plt      0x00000014        0x0 ./ISP_kernels/yuv42210bit_to_8bit.oipus
+
+.bss            0x00000014        0x0
+ *(.bss)
+ .bss           0x00000014        0x0 ./ISP_kernels/yuv42210bit_to_8bit.oipus
+LOAD ./ISP_kernels/yuv42210bit_to_8bit.oipus
+OUTPUT(surround_proj_isp_linux_ov10635_ISP.elf elf32-littlearm)
+
+.debug_line     0x00000000       0xa3
+ .debug_line    0x00000000       0xa3 ./ISP_kernels/yuv42210bit_to_8bit.oipus
+
+.debug_info     0x00000000       0xd4
+ .debug_info    0x00000000       0xd4 ./ISP_kernels/yuv42210bit_to_8bit.oipus
+
+.debug_abbrev   0x00000000       0x14
+ .debug_abbrev  0x00000000       0x14 ./ISP_kernels/yuv42210bit_to_8bit.oipus
+
+.debug_aranges  0x00000000       0x20
+ .debug_aranges
+                0x00000000       0x20 ./ISP_kernels/yuv42210bit_to_8bit.oipus

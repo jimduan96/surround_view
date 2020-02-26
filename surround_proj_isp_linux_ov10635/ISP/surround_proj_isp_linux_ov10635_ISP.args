@@ -1,0 +1,4 @@
+--accept-unknown-input-arch
+-Map surround_proj_isp_linux_ov10635_ISP.map
+-T"D:/workspaceS32DS.3.2/surround_proj_isp_linux_ov10635/Project_Settings/Linker_Files/S32V_ISP.ld"
+"./ISP_kernels/yuv42210bit_to_8bit.oipus"

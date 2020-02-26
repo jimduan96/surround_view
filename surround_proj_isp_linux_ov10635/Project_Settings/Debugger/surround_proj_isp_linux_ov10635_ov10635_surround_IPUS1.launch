@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="com.nxp.s32ds.debug.ide.s32debugger.core.s32DebuggerLaunchConfigurationType">
+<stringAttribute key="com.nxp.s32ds.debug.ide.s32debugger.core.delayInMSeconds" value="0"/>
+<stringAttribute key="com.nxp.s32ds.debug.ide.s32debugger.core.deviceCoreId" value="S32V234_IPUS1"/>
+<booleanAttribute key="com.nxp.s32ds.debug.ide.s32debugger.core.doLaunchServer" value="true"/>
+<booleanAttribute key="com.nxp.s32ds.debug.ide.s32debugger.core.doResetAndDelay" value="false"/>
+<stringAttribute key="com.nxp.s32ds.debug.ide.s32debugger.core.hostnameOrIp" value=""/>
+<booleanAttribute key="com.nxp.s32ds.debug.ide.s32debugger.core.initialCore" value="true"/>
+<stringAttribute key="com.nxp.s32ds.debug.ide.s32debugger.core.initializationScriptPath" value="${S32DS_INITIALIZATION_SCRIPTS_DIR}/s32v234/s32v234_attach.py"/>
+<booleanAttribute key="com.nxp.s32ds.debug.ide.s32debugger.core.isSemihostingEnabled" value="true"/>
+<booleanAttribute key="com.nxp.s32ds.debug.ide.s32debugger.core.isServerLogEnabled" value="false"/>
+<stringAttribute key="com.nxp.s32ds.debug.ide.s32debugger.core.jtagSpeedKHz" value="16000"/>
+<stringAttribute key="com.nxp.s32ds.debug.ide.s32debugger.core.port" value=""/>
+<stringAttribute key="com.nxp.s32ds.debug.ide.s32debugger.core.remoteTimeoutInSeconds" value="30"/>
+<stringAttribute key="com.nxp.s32ds.debug.ide.s32debugger.core.secureDebuggingType" value=""/>
+<stringAttribute key="com.nxp.s32ds.debug.ide.s32debugger.core.semihostingPort" value="45001"/>
+<stringAttribute key="com.nxp.s32ds.debug.ide.s32debugger.core.serverPortNumber" value="45000"/>
+<booleanAttribute key="com.nxp.s32ds.debug.ide.s32debugger.core.useEthernet" value="true"/>
+<booleanAttribute key="com.nxp.s32ds.debug.ide.s32debugger.core.useSecureDebugging" value="false"/>
+<booleanAttribute key="org.eclipse.cdt.debug.gdbjtag.core.loadImage" value="false"/>
+<booleanAttribute key="org.eclipse.cdt.debug.gdbjtag.core.loadSymbols" value="true"/>
+<booleanAttribute key="org.eclipse.cdt.debug.gdbjtag.core.setPcRegister" value="false"/>
+<booleanAttribute key="org.eclipse.cdt.debug.gdbjtag.core.setResume" value="false"/>
+<booleanAttribute key="org.eclipse.cdt.debug.gdbjtag.core.setStopAt" value="false"/>
+<stringAttribute key="org.eclipse.cdt.debug.gdbjtag.core.symbolsFileName" value="${workspace_loc:/surround_proj_isp_linux_ov10635/ISP/ISP_kernels/yuv42210bit_to_8bit_ipus.oipus}"/>
+<booleanAttribute key="org.eclipse.cdt.debug.gdbjtag.core.useFileForSymbols" value="true"/>
+<booleanAttribute key="org.eclipse.cdt.debug.gdbjtag.core.useProjBinaryForSymbols" value="false"/>
+<stringAttribute key="org.eclipse.cdt.dsf.gdb.DEBUG_NAME" value="${S32DS_GDB_CLIENT_ISP_EXECUTABLE_PATH}"/>
+<booleanAttribute key="org.eclipse.cdt.dsf.gdb.UPDATE_THREADLIST_ON_SUSPEND" value="false"/>
+<stringAttribute key="org.eclipse.cdt.launch.PROGRAM_NAME" value="ISP/surround_proj_isp_linux_ov10635_ISP.elf"/>
+<stringAttribute key="org.eclipse.cdt.launch.PROJECT_ATTR" value="surround_proj_isp_linux_ov10635"/>
+<stringAttribute key="org.eclipse.cdt.launch.PROJECT_BUILD_CONFIG_ID_ATTR" value="com.freescale.s32ds.vision.linux.arm64.isp.elf.1708006201"/>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/surround_proj_isp_linux_ov10635"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="4"/>
+</listAttribute>
+</launchConfiguration>
