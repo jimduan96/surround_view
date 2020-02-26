@@ -118,24 +118,51 @@ void ISP_CALL()
   sdi::Initialize(0);
   // *** create grabber ***
   sdi_grabber *lpGrabber = new(sdi_grabber);
-  lpGrabber->ProcessSet(gpGraph, &gGraphMetadata);
+  if(lpGrabber == NULL)
+  {
+    printf("Failed to create sdi grabber.\n");
+    return;// -1;
+  } // if failed to create grabber
+  if(lpGrabber->ProcessSet(gpGraph, &gGraphMetadata) != LIB_SUCCESS)
+		  {
+		    printf("Failed to set ISP graph to grabber.\n");
+		    return;// -1;
+		  } // if ISP graph not set
   
   // *** prepare IOs ***
 
   io_config(lpGrabber);
   
   // *** prestart grabber ***
-  lpGrabber->PreStart();
+  if(lpGrabber->PreStart() != LIB_SUCCESS)
+		  {
+		    printf("Failed to prestart the grabber.\n");
+		    return;// -1;
+		  } // if PreStart() failed
 
   // *** configure camera parameters ***
   camera_config(); 
+
+/* JD TBD; copied from sdk c demo. not sure how to use arContext
+  if(lpGrabber->SeqEventCallBackInstall(&SeqEventCallBack, &arContext) != LIB_SUCCESS)
+  {
+    printf("Failed to install Sequencer event callback.\n");
+    return -1;
+  } // if callback setup failed
+*/
+
+
+
+  if(lpGrabber->Start() != LIB_SUCCESS)
+		  {
+		    printf("Failed to start the grabber.\n");
+		    return;// -1;
+		  } // if Start() failed
 
   // fetched frame buffer storage
   SDI_Frame gFrameIsp;
 
   uint32_t lLoop;
-
-  lpGrabber->Start();
 
   while (1)
   {
