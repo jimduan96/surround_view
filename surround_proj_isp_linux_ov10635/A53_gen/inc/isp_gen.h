@@ -37,7 +37,7 @@ all the rest can be changed by the source code emitted without notice*/
  * ISP call include
  *
  */
-void ISP_CALL ();
+void ISP_CALL (int);
 void camera_config(void);
 void io_config(sdi_grabber *lpGrabber);
 
