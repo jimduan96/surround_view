@@ -76,7 +76,10 @@ static bool sStop = false; ///< to signal Ctrl+c from command line
 #endif 
 
 
-void ISP_CALL()
+int mFrmCnt     = 0;
+int mFrmDoneCnt = 0;
+
+void ISP_CALL(int sCamChanel)
 {
   //*** Init DCU Output ***
 #ifdef __STANDALONE__
@@ -133,6 +136,9 @@ void ISP_CALL()
 
   io_config(lpGrabber);
   
+   mFrmCnt     = 0;
+   mFrmDoneCnt = 0;
+
   // *** prestart grabber ***
   if(lpGrabber->PreStart() != LIB_SUCCESS)
 		  {
@@ -160,13 +166,55 @@ void ISP_CALL()
 		  } // if Start() failed
 
   // fetched frame buffer storage
-  SDI_Frame gFrameIsp;
+  //SDI_Frame gFrameIsp;
 
-  uint32_t lLoop;
+  //uint32_t lLoop;
+
+  uint32_t  lActiveStreamIndex = 0;
+    SDI_Frame lpFrame[STREAM_CNT];
 
   while (1)
   {
-    for(lLoop=0; lLoop<LOOP_NUM; lLoop++)
+
+	    // pop all
+	    for(int i = 0; i < STREAM_CNT; i++)
+	    {
+	      lpFrame[i] = lpGrabber->FramePop(i);
+	      if(lpFrame[i].mUMat.empty())
+	      {
+	        printf("Failed to grab image number %u\n", mFrmCnt);
+	        //arContext.mError = true;
+	        return;// -1;
+	      } // if pop failed
+	    }   // for all channels
+	    if(sCamChanel < 5)
+	    {
+	      lDcuOutput.PutFrame(lpFrame[sCamChanel - 1].mUMat);
+	    }
+	    else
+	    {
+	      if(((++mFrmCnt) % STREAM_CYCLE_FRM_CNT) == 0)
+	      {
+	        ++lActiveStreamIndex;
+	        lActiveStreamIndex = lActiveStreamIndex % STREAM_CNT;
+	        printf("Selected camera = %u ", lActiveStreamIndex);
+	      } // if stream to be switched
+
+	      lDcuOutput.PutFrame(lpFrame[lActiveStreamIndex].mUMat);
+	    }
+
+	    for(int i = 0; i < STREAM_CNT; i++)
+	    {
+	      if(lpGrabber->FramePush(lpFrame[i]) != LIB_SUCCESS)
+	      {
+	        printf("Failed to push image number %u\n", mFrmCnt);
+	        //arContext.mError = true;
+	        break;
+	      } // if push failed
+	    }
+
+    /* only show first camera
+     * for(lLoop=0; lLoop<LOOP_NUM; lLoop++)
     {
       gFrameIsp = lpGrabber->FramePop();
 
@@ -189,7 +237,9 @@ void ISP_CALL()
     {
       break;
     } // if gpFramout == NULL
-    
+    */
+
+
     // *** log output ****
 #ifndef __STANDALONE__
     if(sStop) // if Ctrl+C
