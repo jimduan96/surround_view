@@ -23,9 +23,68 @@
 #include "isp_gen.h"
 #include "isp_user_define.h"
 #include "ov10635_surround_c.h"
+
+#include <common_helpers.h>
  
- int main(int, char **)
+
+static uint8_t sCamChanel = 5;
+static int8_t  sCsiPort   = -1;
+
+
+ int main(int argc, char** argv)
 {
+	  //*** process command line parameters ***
+	  const char helpMsg_str[] =
+	      "\n**************************************************************\n"
+	      "** Omnivision Ov10635 quad demo using Maxim Ser/Des HW setup\n"
+	      "** Description:\n"
+	      "**  o Maxim 9286 deserializer board with 4xOmnivision Ov10635\n"
+	      "**    cameras each with 9271 serializer (on MipiCsi_0) expected as\n"
+	      "**    image input.\n"
+	      "**  o ISP converts YUV422 10bit piexel data provided by the sensor\n"
+	      "**    to YUV422 8bit pixels and stores single camera images into\n"
+	      "**    separate DDR buffers.\n"
+	      "**  o Resulting YUV 1280x800 image are displayed live using DCU.\n"
+	      "**\n"
+	      "*********************************\n\n"
+	      "** Usage:\n"
+	      "**  o ./isp_ov10635_quad.elf <camera channel> [<csi port>]\n"
+	      "**\n"
+	      "** Options:\n"
+	      "**  o camera channel   1-5. 5: switch each camera between 150 frames\n"
+	      "**  o                      [default: 5]\n"
+	      "**  o csi port         0|1 [default: use graph's setting]\n"
+	      "**\n"
+	      "*********************************\n\n"
+	      "** Example:\n"
+	      "**  o Run camera #2, MAXIM pluged in CSI #1.\n"
+	      "**    ./isp_ov10635_quad.elf 2 1\n"
+	      "**  o Run all camera, use graph's setting for csi port.\n"
+	      "**    ./isp_ov10635_quad.elf\n"
+	      "**\n"
+	      "**************************************************************\n\n";
+	  int idxHelp = COMMON_HelpMessage(argc, argv, helpMsg_str);
+	  if(idxHelp < 0)
+	  { // print help message even if no help option is provided by the user
+	    printf("%s", helpMsg_str);
+	  }
+
+	  if(argc > 1)
+	  {
+	    sCamChanel = atoi(argv[1]);
+	  }
+
+	  if(argc > 2)
+	  {
+	    sCsiPort = atoi(argv[2]);
+	  }
+
+	  if((sCamChanel < 1) || (sCamChanel > 5) || (sCsiPort < -1) || (sCsiPort > 1))
+	  {
+	    //lRet = -1;
+	    printf("Invalid input parameters, please see the help string\n");
+	    return 0;
+	  } // if check params OK
 
 /**********************************************************************
     The ISP_CALL is placeholder for calling the graph. 
@@ -47,16 +106,76 @@
      The user should add the code to execute all steps to initialize
      DDR buffers.
  **********************************************************************/
+
+ int32_t DdrBuffersPrepare(sdi_FdmaIO *lpFdma)
+ {
+   // *** 4x YUV full frame buffer array ***
+   // modify DDR frame geometry to fit display output
+   SDI_ImageDescriptor lFrmDesc;
+   lFrmDesc = SDI_ImageDescriptor(WIDTH_DDR, HEIGHT_DDR, YUV422Stream_UYVY);
+
+   if(lpFdma->DdrBufferDescSet(FDMA_IX_FastDMA_Out, lFrmDesc) != LIB_SUCCESS)
+   {
+     printf("Failed to set image descriptor 0.\n");
+     return -1;
+   } // if frame descriptor setup failed
+
+   if(lpFdma->DdrBufferDescSet(FDMA_IX_FastDMA_Out1, lFrmDesc) != LIB_SUCCESS)
+   {
+     printf("Failed to set image descriptor 1.\n");
+     return -1;
+   } // if frame descriptor setup failed
+
+   if(lpFdma->DdrBufferDescSet(FDMA_IX_FastDMA_Out2, lFrmDesc) != LIB_SUCCESS)
+   {
+     printf("Failed to set image descriptor 2.\n");
+     return -1;
+   } // if frame descriptor setup failed
+
+   if(lpFdma->DdrBufferDescSet(FDMA_IX_FastDMA_Out3, lFrmDesc) != LIB_SUCCESS)
+   {
+     printf("Failed to set image descriptor 3.\n");
+     return -1;
+   } // if frame descriptor setup failed
+
+   // allocate DDR buffers
+   if(lpFdma->DdrBuffersAlloc(DDR_OUT_BUFFER_CNT) != LIB_SUCCESS)
+   {
+     printf("Failed to allocate DDR buffers.\n");
+     return -1;
+   } // if ddr buffers not allocated
+
+   return 0;
+ } // DdrBuffersPrepare(AppContext &arContext)
+
 void io_config(sdi_grabber *lpGrabber)
 {
     /* Insert the code to initialize  DDR buffers */   
 	// JD
-		sdi_FdmaIO *lpFdma = (sdi_FdmaIO*)lpGrabber->IoGet(SEQ_OTHRIX_FDMA);
+		/*sdi_FdmaIO *lpFdma = (sdi_FdmaIO*)lpGrabber->IoGet(SEQ_OTHRIX_FDMA);
 
 		SDI_ImageDescriptor lFrmDesc = SDI_ImageDescriptor(WIDTH_DDR, HEIGHT_DDR, RGB888);
 		lpFdma->DdrBufferDescSet(FDMA_IX_FastDMA_Out, lFrmDesc);
 
-		lpFdma->DdrBuffersAlloc(FDMA_IX_FastDMA_Out, DDR_OUT_BUFFER_CNT);
+		lpFdma->DdrBuffersAlloc(FDMA_IX_FastDMA_Out, DDR_OUT_BUFFER_CNT);*/
+
+
+
+		if(lpGrabber->IoGet(SEQ_OTHRIX_MIPICSI0) && sCsiPort > 0)
+		{
+			lpGrabber->CsiSwap(sCsiPort + SEQ_OTHRIX_MIPICSI0, SEQ_OTHRIX_MIPICSI0);
+		} // if(!lCamIo.mCsiIdxs.empty() && sCsiPort > 0)
+
+		// get IOs
+		sdi_FdmaIO *lpFdma = (sdi_FdmaIO*)lpGrabber->IoGet(SEQ_OTHRIX_FDMA);
+		if(lpFdma == NULL)
+		{
+			printf("Failed to get FDMA object.\n");
+			//return -1;
+		} // if no FDMA object
+
+		DdrBuffersPrepare(lpFdma);
+
 }
 
 /**********************************************************************
