@@ -1,0 +1,277 @@
+Archive member included to satisfy reference by file (symbol)
+
+../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(crt0_start-s.o)
+                              (resetEntry)
+../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(startup-c.o)
+                              ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(crt0_start-s.o) (stopLoop)
+../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_main-c.o)
+                              ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(crt0_start-s.o) (main)
+../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_static-c.o)
+                              ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_main-c.o) (staticSequenceInit)
+../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(core_regs-s.o)
+                              ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_main-c.o) (getPRIMASK)
+../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_int-c.o)
+                              ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_main-c.o) (gpOTHR)
+
+Allocating common symbols
+Common symbol       size              file
+
+gpIPUV              0x20              ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_int-c.o)
+gpIntDevCfg         0x50              ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_int-c.o)
+gpIPUS              0x40              ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_int-c.o)
+gJPEGev             0xc               ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_main-c.o)
+gpOTHR              0xc0              ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_int-c.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+intvec_base      0x00000000         0x000000c0
+sram_RAM         0x00000100         0x0000af00
+stack            0x0000b000         0x00001000
+graph            0x0000c000         0x00004000
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+
+.vectable       0x00000000       0x40
+                0x00000000                LD_vectorTable = .
+ *(.vectable)
+ .vectable      0x00000000       0x40 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(startup-c.o)
+
+.init
+ *(.init)
+
+.text           0x00000100     0x63c8
+ *(.text*)
+ .text          0x00000100        0xc dynamic_mipi_simple-c.o
+                0x00000100                StaticSequencing
+ .text          0x0000010c       0x3c ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(crt0_start-s.o)
+                0x0000010c                resetEntry
+                0x0000013c                exceptionEntry
+ .text          0x00000148       0x2c ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(startup-c.o)
+                0x00000148                stopLoop
+                0x0000014c                compInit
+ .text          0x00000174     0x496c ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_main-c.o)
+                0x00002788                initIPUpara
+                0x000027f8                processFdmaEvent
+                0x00002b88                processEvent
+                0x00003200                startDev
+                0x000036bc                processMessage
+                0x00004484                checkUpdatedDev
+                0x00004910                numFreeFdmaQueue
+                0x00004928                exceptionHL
+                0x000049cc                fatalError
+ .text.startup  0x00004ae0       0xb8 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_main-c.o)
+                0x00004ae0                main
+ .text          0x00004b98      0x60c ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_static-c.o)
+                0x00004ba4                staticSequenceInit
+                0x00004bb8                staticSequenceLoop
+                0x00004d3c                staticSequenceWaitFinish
+                0x00004dc8                staticSequenceJpeg4
+                0x00005140                initIPUnode
+                0x0000517c                initFDMAnode
+ .text          0x000051a4       0x1a ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(core_regs-s.o)
+                0x000051a4                getSP
+                0x000051a8                setSP
+                0x000051ac                getIPSR
+                0x000051b2                getPRIMASK
+                0x000051b8                getCONTROL
+ *fill*         0x000051be        0x2 
+ .text          0x000051c0     0x1308 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_int-c.o)
+                0x00005610                SEQ_ExecuteEvents
+                0x000061d8                SEQ_EvntRegIntDev
+                0x00006338                SEQ_EvntInit
+                0x0000647c                procIpuEvent
+
+.glue_7         0x000064c8        0x0
+ .glue_7        0x000064c8        0x0 linker stubs
+
+.glue_7t        0x000064c8        0x0
+ .glue_7t       0x000064c8        0x0 linker stubs
+
+.vfp11_veneer   0x000064c8        0x0
+ .vfp11_veneer  0x000064c8        0x0 linker stubs
+
+.v4_bx          0x000064c8        0x0
+ .v4_bx         0x000064c8        0x0 linker stubs
+
+.iplt           0x000064c8        0x0
+ .iplt          0x000064c8        0x0 dynamic_mipi_simple-c.o
+
+.rodata         0x000064c8      0x408
+ *(.rodata*)
+ .rodata        0x000064c8      0x114 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_main-c.o)
+ .rodata.str1.4
+                0x000065dc      0x1fe ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_main-c.o)
+ *fill*         0x000067da        0x2 
+ .rodata        0x000067dc       0x18 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_int-c.o)
+ .rodata.str1.4
+                0x000067f4       0xdc ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_int-c.o)
+
+.rel.dyn        0x000068d0        0x0
+ .rel.iplt      0x000068d0        0x0 dynamic_mipi_simple-c.o
+
+.sdabase
+ *(.sdabase*)
+
+.sdata
+ *(.sdata*)
+
+.sdata2
+ *(.sdata2*)
+
+.sbss
+ *(.sbss*)
+
+.data           0x000068d0       0x1c
+ *(.data*)
+ .data          0x000068d0        0x0 dynamic_mipi_simple-c.o
+ .data          0x000068d0        0x0 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(crt0_start-s.o)
+ .data          0x000068d0        0x0 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(startup-c.o)
+ .data          0x000068d0       0x1c ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_main-c.o)
+                0x000068d0                gpvReg_EVNT
+                0x000068d8                gOutMsgFree
+                0x000068dc                gpvReg_CTRL
+                0x000068e4                gpvReg_FDMA
+ .data          0x000068ec        0x0 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_static-c.o)
+ .data          0x000068ec        0x0 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(core_regs-s.o)
+ .data          0x000068ec        0x0 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_int-c.o)
+
+.igot.plt       0x000068ec        0x0
+ .igot.plt      0x000068ec        0x0 dynamic_mipi_simple-c.o
+
+.bss            0x000068f0      0x9cc
+                0x000068f0                LD_bssStart = .
+ *(.bss*)
+ .bss           0x000068f0        0x0 dynamic_mipi_simple-c.o
+ .bss           0x000068f0        0x0 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(crt0_start-s.o)
+ .bss           0x000068f0        0x0 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(startup-c.o)
+ .bss           0x000068f0      0x700 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_main-c.o)
+                0x00006910                gNumCamLines
+                0x00006914                gOTHRdone
+                0x00006918                gpMIPI0
+                0x0000691c                gpMIPI1
+                0x00006920                gpVIU0
+                0x00006924                gpVIU1
+                0x00006928                gNumFdmaRun
+                0x00006948                gpH264enc
+                0x0000694c                gpH264dec
+                0x00006950                gpJPEGdec
+                0x00006988                gNumIpusRun
+                0x000069b0                gIPUSdone
+                0x000069bc                gInputLines
+                0x000069d8                gpGraph
+ .bss           0x00006ff0      0x14c ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_static-c.o)
+                0x00006ff0                sStaticSeq
+                0x00006ff8                gStatSeqChan
+ .bss           0x0000713c        0x0 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(core_regs-s.o)
+ .bss           0x0000713c        0x2 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_int-c.o)
+                0x0000713c                gIntDevCnt
+                0x0000713e                LD_bssEnd = .
+ *fill*         0x0000713e        0x2 
+ COMMON         0x00007140        0xc ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_main-c.o)
+                0x00007140                gJPEGev
+ COMMON         0x0000714c      0x170 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_int-c.o)
+                0x0000714c                gpIPUV
+                0x0000716c                gpIntDevCfg
+                0x000071bc                gpIPUS
+                0x000071fc                gpOTHR
+
+.stack          0x0000b000        0x0
+                0x0000b000                LD_stackBottom = .
+
+.graph          0x0000c000        0x0
+                0x0000bffc                LD_stackTop = (. - 0x4)
+                0x0000c000                LD_graphStart = .
+LOAD dynamic_mipi_simple-c.o
+LOAD ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a
+OUTPUT(sequencer.elf elf32-littlearm)
+
+.debug_info     0x00000000    0x18dbd
+ .debug_info    0x00000000       0xfc dynamic_mipi_simple-c.o
+ .debug_info    0x000000fc     0x1701 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(startup-c.o)
+ .debug_info    0x000017fd     0xdfa7 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_main-c.o)
+ .debug_info    0x0000f7a4     0x5659 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_static-c.o)
+ .debug_info    0x00014dfd     0x3fc0 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_int-c.o)
+
+.debug_abbrev   0x00000000      0xdd8
+ .debug_abbrev  0x00000000       0x81 dynamic_mipi_simple-c.o
+ .debug_abbrev  0x00000081      0x16d ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(startup-c.o)
+ .debug_abbrev  0x000001ee      0x48a ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_main-c.o)
+ .debug_abbrev  0x00000678      0x352 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_static-c.o)
+ .debug_abbrev  0x000009ca      0x40e ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_int-c.o)
+
+.debug_aranges  0x00000000       0xa8
+ .debug_aranges
+                0x00000000       0x20 dynamic_mipi_simple-c.o
+ .debug_aranges
+                0x00000020       0x20 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(startup-c.o)
+ .debug_aranges
+                0x00000040       0x28 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_main-c.o)
+ .debug_aranges
+                0x00000068       0x20 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_static-c.o)
+ .debug_aranges
+                0x00000088       0x20 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_int-c.o)
+
+.debug_line     0x00000000     0x333d
+ .debug_line    0x00000000      0x1ae dynamic_mipi_simple-c.o
+ .debug_line    0x000001ae      0x1e9 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(startup-c.o)
+ .debug_line    0x00000397     0x220e ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_main-c.o)
+ .debug_line    0x000025a5      0x41a ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_static-c.o)
+ .debug_line    0x000029bf      0x97e ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_int-c.o)
+
+.debug_str      0x00000000     0x5613
+ .debug_str     0x00000000      0x2b9 dynamic_mipi_simple-c.o
+                                0x2f6 (size before relaxing)
+ .debug_str     0x000002b9     0x1212 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(startup-c.o)
+                               0x1458 (size before relaxing)
+ .debug_str     0x000014cb     0x3df9 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_main-c.o)
+                               0x5295 (size before relaxing)
+ .debug_str     0x000052c4      0x1d9 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_static-c.o)
+                               0x34f3 (size before relaxing)
+ .debug_str     0x0000549d      0x176 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_int-c.o)
+                               0x18e7 (size before relaxing)
+
+.comment        0x00000000       0x7e
+ .comment       0x00000000       0x7e dynamic_mipi_simple-c.o
+                                 0x7f (size before relaxing)
+ .comment       0x0000007e       0x7f ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(startup-c.o)
+ .comment       0x0000007e       0x7f ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_main-c.o)
+ .comment       0x0000007e       0x7f ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_static-c.o)
+ .comment       0x0000007e       0x7f ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_int-c.o)
+
+.ARM.attributes
+                0x00000000       0x31
+ .ARM.attributes
+                0x00000000       0x31 dynamic_mipi_simple-c.o
+ .ARM.attributes
+                0x00000031       0x23 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(crt0_start-s.o)
+ .ARM.attributes
+                0x00000054       0x31 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(startup-c.o)
+ .ARM.attributes
+                0x00000085       0x31 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_main-c.o)
+ .ARM.attributes
+                0x000000b6       0x31 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_static-c.o)
+ .ARM.attributes
+                0x000000e7       0x23 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(core_regs-s.o)
+ .ARM.attributes
+                0x0000010a       0x31 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_int-c.o)
+
+.debug_frame    0x00000000      0x60c
+ .debug_frame   0x00000000       0x20 dynamic_mipi_simple-c.o
+ .debug_frame   0x00000020       0x30 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(startup-c.o)
+ .debug_frame   0x00000050      0x370 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_main-c.o)
+ .debug_frame   0x000003c0       0xe8 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_static-c.o)
+ .debug_frame   0x000004a8      0x164 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_int-c.o)
+
+.debug_loc      0x00000000    0x10400
+ .debug_loc     0x00000000       0x20 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(startup-c.o)
+ .debug_loc     0x00000020     0xb2b6 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_main-c.o)
+ .debug_loc     0x0000b2d6     0x10cc ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_static-c.o)
+ .debug_loc     0x0000c3a2     0x405e ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_int-c.o)
+
+.debug_ranges   0x00000000     0x2708
+ .debug_ranges  0x00000000     0x19b8 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_main-c.o)
+ .debug_ranges  0x000019b8      0x130 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_static-c.o)
+ .debug_ranges  0x00001ae8      0xc20 ../../../../../isp/firmware/build-v234ce-gnu-linux-o/libsequencer.a(seq_int-c.o)
