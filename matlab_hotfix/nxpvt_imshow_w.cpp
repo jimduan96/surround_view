@@ -24,7 +24,7 @@ void init_framebuffer()
 {
     if (!init_done) {
         // printf("[nxpvt_imshow_c] Initializing framebuffer to %dx%d\n", S32V_FRAMEBUFFER_HEIGHT, S32V_FRAMEBUFFER_WIDTH);
-        lDcuOutput.Init(width, height, io::IO_DATA_DEPTH_08, io::IO_DATA_CH3);
+        // lDcuOutput.Init(width, height, io::IO_DATA_DEPTH_08, io::IO_DATA_CH3);
         cv::Mat outBufferMat = outBufferUMat.getMat(vsdk::ACCESS_WRITE | OAL_USAGE_CACHED);
         memset(outBufferMat.data, 0, S32V_FRAMEBUFFER_HEIGHT*S32V_FRAMEBUFFER_WIDTH*3);
         init_done = 1;
@@ -61,11 +61,9 @@ void nxpvt_imshow_w(vsdk::UMat* imgUMat)
         printf("[nxpvt_imshow_c] Invalid sizes %dx%d\n", imgUMat->rows, imgUMat->cols);
         return;
     }
-    //printf("[nxpvt_imshow_c] image sizes %dx%dx%d\n", imgUMat->rows, imgUMat->cols, imgUMat->channels());
 
     init_framebuffer();
     
-
     cv::Mat imgCvMat;
     if (imgUMat->channels() == 1) {
         cv::Mat grayImgCvMat = imgUMat->getMat(cv::ACCESS_READ | OAL_USAGE_CACHED);
@@ -75,15 +73,9 @@ void nxpvt_imshow_w(vsdk::UMat* imgUMat)
         imgCvMat = imgUMat->getMat(cv::ACCESS_READ | OAL_USAGE_CACHED);
         #else
         cv::Mat imgYUVMat = imgUMat->getMat(cv::ACCESS_READ | OAL_USAGE_CACHED);
-        //cvtColor(src,dst,CV_YUV2BGR_YUY2);//CV_YUV2BGR_UYVY);
-        //vsdk::UMat output_umat = vsdk::UMat(720, 1280, VSDK_CV_8UC3);
-        //cv::Mat output_mat = output_umat.getMat(vsdk::ACCESS_WRITE | OAL_USAGE_CACHED);
-        //memset(output_mat.data, 0, 720 * 1280 * 3);
         cv::cvtColor(imgYUVMat,imgCvMat,CV_YUV2BGR_UYVY);//CV_YUV2BGR_UYVY);CV_YUV2BGR_YUY2
         #endif
     }
-
-    //printf("[nxpvt_imshow_c] image imgCvMat size %dx%d\n", imgCvMat.rows, imgCvMat.cols/*, imgCvMat.channels()*/);
 
     cv::Mat outBufferCvMat = outBufferUMat.getMat(cv::ACCESS_WRITE | OAL_USAGE_CACHED);
     imgCvMat.copyTo(outBufferCvMat(cv::Rect(0, 0, imgCvMat.cols, imgCvMat.rows)));
